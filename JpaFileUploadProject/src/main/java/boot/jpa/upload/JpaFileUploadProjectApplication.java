@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan({"board.*"})
-@EntityScan("board.data")
-@EnableJpaRepositories("board.data")
+@EntityScan("board.*")
+@EnableJpaRepositories("board.*")
 public class JpaFileUploadProjectApplication {
 
 	public static void main(String[] args) {

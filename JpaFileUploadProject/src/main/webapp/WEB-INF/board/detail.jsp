@@ -33,6 +33,17 @@
 	</td>
 	</tr>
 	
+	<tr>
+	<td>
+	<hr>
+	<form action="answer/write" method="post">
+	작성자<input type="text" name="writer" required> <br>
+	내용<input type="text" name="content" required> 
+	<button type="submit">작성</button>
+	</form>
+	</td>
+	</tr>
+	
 	<tr align="right">
 	<td><button type="button" onclick="location.href='updateform?num=${dto.num}'">수정</button>
 	<button type="button" onclick="location.href='delete?num=${dto.num}'">삭제</button>

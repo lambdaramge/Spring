@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="data.mapper.MarketMapperInter">
+	<!-- id는 interface의 함수명과 동일 -->
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from mart
+	</select>
+	
+	<insert id="insertMarket" parameterType="mdto">
+		insert into mart(sang,dan,photoname,ipgo) values(#{sang},#{dan},#{photoname},now())
+	</insert>
+	
+	<select id="getList" resultType="mdto">
+		select * from mart
+	</select>
+	
+	<delete id="deleteData" parameterType="String">
+		delete from mart where num=#{num}
+	</delete>
+	
+	<select id="getData" parameterType="String" resultType="mdto">
+		select * from mart where num=#{num}
+	</select>
+	
+	<update id="updateData" parameterType="mdto">
+		update mart set sang=#{sang},dan=#{dan}
+		<if test="photoname!='no'">
+		,photoname=#{photoname}
+		</if>
+		 where num=#{num}
+	</update>
+</mapper>

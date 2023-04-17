@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import board.answer.AnswerDao;
+import board.answer.AnswerDto;
 import board.data.BoardDao;
 import board.data.BoardDto;
 
@@ -156,4 +158,21 @@ public class BoardController {
 	      
 	      return "redirect:detail?num="+dto.getNum();
 	   }
+	 
+	 	
+	 	//댓글
+	 	@Autowired
+	 	AnswerDao adao;
+
+		@GetMapping("/board/test")
+		public String test() {
+			return "test";
+		}
+		
+		@PostMapping("/board/answer/write")
+		public String insertAnswer(@ModelAttribute AnswerDto adto) {
+			
+			adao.insertAnswer(adto);			
+			return "list";
+			}
 }

@@ -1,0 +1,35 @@
+#tomcat port
+server:
+  port: 8090
+
+#jsp
+spring:
+  mvc:
+    view:
+      prefix: /book/
+      suffix: .jsp
+  devtools:
+    livereload:
+      enabled: true
+
+#files
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      location: /book/imagefile/
+      max-file-size: 100MB
+      max-request-size: 100MB
+      
+#mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring?serverTimezone=Asia/Seoul
+    username: angel
+    password: 1234
+    
+#mybatis
+mybatis:
+  type-aliases-package: boot.* #mapper, dto 있는 패키지
+  mapper-locations:
+  - /mapper/**/*.xml
+  
