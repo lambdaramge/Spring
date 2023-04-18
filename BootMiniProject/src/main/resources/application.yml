@@ -1,15 +1,13 @@
-
-
 #tomcat port
 server:
   port: 8090
 
 #jsp
 spring:
-  mvc:
-    view:
-      prefix: /book/
-      suffix: .jsp
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/ipgo/
+#      suffix: .jsp
   devtools:
     livereload:
       enabled: true
@@ -31,7 +29,7 @@ spring:
     
 #mybatis
 mybatis:
-  type-aliases-package: boot.* #mapper, dto 있는 패키지
+  type-aliases-package: boot.data.mapper, boot.data.dto #mapper, dto 있는 패키지, boot.*도 가능
   mapper-locations:
   - /mapper/**/*.xml
-  
+ 
