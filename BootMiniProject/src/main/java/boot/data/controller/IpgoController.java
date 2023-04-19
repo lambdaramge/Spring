@@ -102,4 +102,10 @@ public class IpgoController {
 		
 		return "redirect:list";
 	}
+	
+	//오시는길
+	@GetMapping("/road/map")
+	public String road() {
+		return "/sub/road/map";
+	}
 }

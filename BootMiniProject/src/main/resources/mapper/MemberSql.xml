@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boot.data.mapper.MemberMapperInter">
+
+	<select id="getAllMembers" resultType="MemberDto">
+	select * from member order by id asc
+	</select>
+	
+	<insert id="insertMember" parameterType="MemberDto">
+	insert into member values(null,#{name},#{id},#{pass},#{photo},#{hp},#{addr},#{email},now())
+	</insert>
+	
+	<!-- id중복체크 -->
+	<select id="getSearchId" parameterType="String" resultType="int">
+	select count(*) from member where id=#{id}
+	</select>
+	
+</mapper>

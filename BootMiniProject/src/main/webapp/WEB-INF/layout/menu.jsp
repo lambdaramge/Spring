@@ -61,6 +61,9 @@
 		  <a href="${root }/member/form">회원가입</a>
 		</li>
 		<li>
+		  <a href="${root }/member/myinfo">나의정보</a>
+		</li>
+		<li>
 		  <a href="${root }/road/map">오시는길</a>
 		</li>
 	</ul>
