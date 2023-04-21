@@ -84,20 +84,96 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		//return "/member/gaipsuccess";
-		return "redirect:list";
+		return "/member/gaipsuccess";
 	}
 	
 	//myinfo
 	@GetMapping("/member/myinfo")
-	public String myInfo(Model model) {
+	public String myInfo(Model model, HttpSession session) {
 		
 		List<MemberDto> list=service.getAllMembers();
 		
-		model.addAttribute("list", list);
+		String loginok=(String)session.getAttribute("loginok");
+		
+		if(loginok!=null) {
+			model.addAttribute("list", list);
+			String myid=(String)session.getAttribute("myid");
+			
+			MemberDto dto=service.getDataById(myid);
+			model.addAttribute("dto", dto);
+			
+		}
 		
 		return "/member/info";
 	}
 	
+	@ResponseBody
+	@GetMapping("/member/delete")
+	public String deleteMembers(@RequestParam String num) {
+		service.deleteMembers(num);
+		
+		return "redirect:list";
+	}
 	
+	@GetMapping("/member/deleteinfo")
+	public String deleteMember(@RequestParam String num,
+			HttpSession session) {
+		service.deleteMembers(num);
+		
+		session.removeAttribute("loginok");
+		
+		return "/layout/main";
+	}
+	
+	//info에서 사진만 수정
+	@ResponseBody //formdata로 ajax 수정
+	@PostMapping("/member/updatephoto")
+	public void photoupdate(String num, 
+			MultipartFile photo,
+			HttpSession session) {
+		
+		//업로드될 경로
+		String path=session.getServletContext().getRealPath("/photo");
+		
+		//파일명
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		String fileName="f_"+sdf.format(new Date())+photo.getOriginalFilename();
+		
+		try {
+			
+			photo.transferTo(new File(path+"\\"+fileName));
+			
+			service.updatePhoto(num, fileName); //db에 사진 수정. 세션 사진은 수정 안됨
+			session.setAttribute("loginphoto", fileName);
+			
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//회원정보수정 불러오기
+	@ResponseBody
+	@GetMapping("/member/getdata")
+	public MemberDto getData(String id, HttpSession session) {
+		
+		id=(String)session.getAttribute("myid");
+		
+		return service.getDataById(id);
+		
+	}
+	
+	//회원정보 수정하기
+	@ResponseBody
+	@PostMapping("/member/updatedata")
+	public void updateData(MemberDto dto,
+			HttpSession session) {
+		
+		service.updateMember(dto);
+		session.setAttribute("loginname", dto.getName());
+	}
 }

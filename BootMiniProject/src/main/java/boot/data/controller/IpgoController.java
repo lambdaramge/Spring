@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.data.dto.IpgoDto;
+import boot.data.dto.MemberDto;
 import boot.data.mapper.IpgoMapperInter;
+import boot.data.service.MemberService;
 
 @Controller
 public class IpgoController {
@@ -27,8 +30,18 @@ public class IpgoController {
 	@Autowired
 	IpgoMapperInter mapper;
 	
+	@Autowired
+	MemberService service;
+	
 	@GetMapping("/")
-	public String start() {
+	public String start(Model model,HttpSession session) {
+		
+		String myid=(String)session.getAttribute("myid");
+		
+		MemberDto dto=service.getDataById(myid);
+		
+		model.addAttribute("dto", dto);
+		
 		return "/layout/main";
 	}
 	

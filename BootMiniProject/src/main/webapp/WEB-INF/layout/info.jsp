@@ -14,6 +14,14 @@
 <body>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 
+<c:if test="${sessionScope.loginok==null }">
+	<img src="../image/No_Image_Available.jpg" style="width: 50px; border-radius: 50px;"><br>
+</c:if>
+
+<c:if test="${sessionScope.loginok!=null}">
+	<img src="../photo/${sessionScope.loginphoto}" style="width: 100px; border-radius: 50px;"><br>
+	${sessionScope.loginname}님 로그인중<br>
+</c:if>
 <span class="glyphicon glyphicon-envelope">email</span> &nbsp; sist@gmail.com<br>
 <span class=""></span> &nbsp; 쌍용교육센터<br>
 <a href="#">

@@ -12,11 +12,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script type="text/javascript">
 
-alert("가입 성공");
-location.href="/";
-
-</script>
+	<c:set var="root" value="<%=request.getContextPath() %>"/>
+	
+	<div style="margin-left: 100px; margin-top: 100px;">
+	<img src="${root }/image/월요일.jpg" width="100" alt="left" hspace="20">
+	<br>
+	<!-- 이름받아서 표시 -->
+	${name }님 로그인중
+	
+	<button type="button" class="btn btn-danger" onclick="location.href='logoutproc'">로그아웃</button>	
+	</div>
+	
 </body>
 </html>

@@ -12,6 +12,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<c:set var="root" value="<%=request.getContextPath() %>"/>
+
 <h3>총 ${totalCount }개</h3>
 <br>
 
@@ -25,7 +28,7 @@
 <td>이메일</td>
 <td>주소</td>
 <td>
-삭제<input type="checkbox" id="allcheck">
+<input type="checkbox" id="alldelcheck">
 </td>
 </tr>
 
@@ -52,14 +55,50 @@ ${dto.name }</td>
 
 </body>
 
-<script type="text/javascript">
+<script>
+    	//전체체크클릭시 체크값 얻어서 모든 체크값에 전달
+    	$("#alldelcheck").click(function(){
+    		
+    		var chk=$(this).is(":checked");
+    		//console.log(chk);
+    		//chk의 checked 속성을 prop을 통해 다른 체크들에 전달
+    		$(".eachcheck").prop("checked",chk);
+    	})
+    	
+    	//삭제버튼 클릭시 삭제
+    	$("#btnalldel").click(function(){
+    		//체크된 길이
+    		var len=$(".eachcheck:checked").length;
+    		//alert(len);
+    		
+    		if(len==0){
+    			alert("최소 한 개 이상의 글을 선택해주세요.");
+    			return;
+    		}else{
+    			var a=confirm(len+"개의 글을 삭제하려면 [확인]을 눌러주세요.");
+    			
+    			if(a){
 
-$("#allcheck").click(function(){
-	$(".eachcheck").prop("checked",true);
-	
-	$("input:checkbox[id='eachcheck']")
-})
-
-</script>
+    				$(".eachcheck:checked").each(function(i,ele){
+	    				num=$(this).attr("num");
+    				
+    				$.ajax({
+    					type:"get",
+    					url:"/member/delete",
+    					data:{"num":num},
+    					dataType:"html",
+    					success:function(res){
+    						location.reload();
+    					}
+    					
+    				})
+    				})
+	    			
+    			}
+    		}
+    		
+    	})
+    	
+    </script>
 
 </html>
