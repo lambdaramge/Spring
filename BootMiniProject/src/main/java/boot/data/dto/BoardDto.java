@@ -19,6 +19,7 @@ public class BoardDto {
 	private String uploadfile; //insert할때 multipart 대신에
 	private MultipartFile upload; //dto 멤버로 줄수도 있음, form tag의 name과 동일하게, 여러개하려면 arraylist로
 	private int readcount;
+	private int acount;
 	private Timestamp writeday;
 
 }

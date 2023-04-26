@@ -214,14 +214,12 @@
          
          <div class="alist"></div>
          
+         <input type="hidden" id="num" value="${dto.num }">
          <c:if test="${sessionScope.loginok!=null }">
-            <div class="aform">
-               <div class="form-inline">
-               	  <input type="hidden" id="num" value="${dto.num }">
-                  <input type="text" class="form-control" placeholder="댓글을 입력하세요" id="content">
-                  <button type="button" class="btn btn-info" style="width: 60px;" id="btnansweradd">등록</button>
-                  <button class="btn btn-info" style="width: 60px;" id="btnanswermod">수정</button>
-               </div>
+            <div class="form-inline">
+               <input type="text" class="form-control" placeholder="댓글을 입력하세요" id="content">
+               <button type="button" class="btn btn-info" style="width: 60px;" id="btnansweradd">등록</button>
+               <button class="btn btn-info" style="width: 60px;" id="btnanswermod">수정</button>
             </div>
          </c:if>
          </td>

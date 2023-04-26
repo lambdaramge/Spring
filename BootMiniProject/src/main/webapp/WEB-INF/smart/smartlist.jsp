@@ -11,55 +11,28 @@
 
 <title>Insert title here</title>
 </head>
-
-<style>
-
- 	#acount{
- 		color: red;
- 		font-size: 0.9em;
- 	}
-
-</style>
-
 <body>
 
-<c:if test="${sessionScope.loginok!=null }">
-<button type="button" onclick="location.href='form'">글쓰기</button>
-</c:if>
+<h4 class="alert alert-info">${totalCount }개의 상품이 등록되었습니다.</h4>
 
-<br><br>
+<button type="button" onclick="location.href='form'">상품추가</button>
 
-<table class="table table-bordered" style="width: 1000px">
-<tr bgcolor="#fdcfdc">
-<th width="60">번호</th>
-<th width="160">작성자</th>
-<th width="460">제목</th>
-<th width="60">조회</th>
-<th width="160">등록일</th>
-</tr>
-
-<c:if test="${totalCount==0 }">
-	<tr>
-	<td colspan="5" align="center">
-	<h3><b>등록된 게시글이 없습니다.</b></h3>
-	</td>
-	</tr>
-</c:if>
-
-<c:forEach var="dto" items="${list }" varStatus="i">
+<table class="table table-bordered">
 <tr>
-<td>${i.count }</td>
-<td>${dto.name } ( ${dto.myid} )</td>
-<td>
-<a href="content?num=${dto.num }&currentPage=${currentPage}">
-${dto.subject } 
-<c:if test="${dto.acount!=0 }">
-<a id="acount" href="content?num=${dto.num }">[${dto.acount }]</a>
-</a>
-</c:if>
-</td>
-<td>${dto.readcount }</td>
-<td><fmt:formatDate value="${dto.writeday }" pattern="yyyy-MM-dd HH:mm"/> </td>
+<td>번호</td>
+<td>상품명</td>
+<td>색상</td>
+<td>가격</td>
+<td>입고일</td>
+</tr>
+<c:forEach var="dto" items="${list }">
+<tr>
+<td>${no }</td>
+<c:set var="no" value="${no-1 }"/>
+<td><a href='detail?num=${dto.num}&currentPage=${currentPage}'>${dto.sangname }</a></td>
+<td>${dto.color }<div style="width: 10px; height:10px;border-radius:100%; background-color: ${dto.color};" ></div></td>
+<td>${dto.price }</td>
+<td>${dto.ipgoday }</td>
 </tr>
 </c:forEach>
 </table>
@@ -102,6 +75,5 @@ ${dto.subject }
       
       </c:if>
 ​
-
 </body>
 </html>

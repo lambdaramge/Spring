@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.data.dto.BoardDto;
+import boot.data.service.BoardAnswerService;
 import boot.data.service.BoardService;
 import boot.data.service.MemberService;
 
@@ -28,6 +29,9 @@ public class BoardController {
 	
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired
+	BoardAnswerService aservice;
 
 	@GetMapping("/board/list")
 	public ModelAndView lst(@RequestParam(value = "currentPage",defaultValue = "1") int currentPage) {
@@ -59,6 +63,11 @@ public class BoardController {
 	       List<BoardDto> list=service.getList(start, perPage);
 	       
 	       int no=totalCount-(currentPage-1)*perPage;
+	       
+	       //댓글개수
+	       for(BoardDto d:list) {
+	    	   d.setAcount(aservice.getAllAnswers(d.getNum()).size());
+	       }
 	       
 	       //출력에 필요한 변수를 model에 저장
 	       model.addObject("totalCount", totalCount);
